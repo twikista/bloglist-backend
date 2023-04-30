@@ -1,3 +1,4 @@
+const config = require("./utils/config");
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -5,8 +6,7 @@ const mongoose = require("mongoose");
 const Blog = require("./models/blog");
 const blogRouter = require("./controllers/blogs");
 
-const uri =
-  "mongodb+srv://twikista:throwaykey007@cluster0.cxggszr.mongodb.net/bloglist?retryWrites=true&w=majority";
+const uri = config.MONGODB_URI;
 
 mongoose.connect(uri).then(() => {
   console.log("connected to mongoDB");
@@ -29,7 +29,7 @@ app.use("/api/blogs", blogRouter);
 //   });
 // });
 
-const PORT = 3001;
+const PORT = config.PORT;
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
 });
