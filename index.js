@@ -2,15 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
-
-const blogSchema = new mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number,
-});
-
-const Blog = mongoose.model("Blog", blogSchema);
+const Blog = require("./model/blog");
 
 const uri =
   "mongodb+srv://twikista:throwaykey007@cluster0.cxggszr.mongodb.net/bloglist?retryWrites=true&w=majority";

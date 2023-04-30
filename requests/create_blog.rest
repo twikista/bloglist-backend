@@ -1,4 +1,4 @@
 POST http://localhost:3001/api/blogs/
 Content-Type: application/json
 
-{"title": "Redux ToolKit for begginers", "author": "John Smiggle", "url": "http://codeaddict.com", "likes": 50}
+{"title": "Becoming a product manager", "author": "Product school", "url": "http://productschool.com", "likes": 38}
