@@ -1,4 +1,4 @@
 POST http://localhost:3001/api/blogs/
 Content-Type: application/json
 
-{"title": "Becoming a product manager", "author": "Product school", "url": "http://productschool.com", "likes": 38}
+{"title": "Activating your windows", "author": "Microsoft", "url": "http://windows.microsoft.com", "likes": 89}
