@@ -1,4 +1,4 @@
 POST http://localhost:3001/api/blogs/
 Content-Type: application/json
 
-{"title": "React is king of frontend", "author": "Facebppk", "url": "http://blog.reactdoc.com", "likes": 25}
+{"title": "Next Js: React framework", "author": "Vercel", "url": "http://blog.nextjs.com", "likes": 88}
