@@ -31,22 +31,19 @@ const Blog = require("../models/blog");
 beforeEach(async () => {
   await Blog.deleteMany({});
 
-  let blogObject = new Blog(testHelper.initialBlogs[0]);
-  await blogObject.save();
+  const blogObjects = testHelper.initialBlogs.map((blog) => new Blog(blog));
+  const promiseArray = blogObjects.map((i) => i.save());
+  await Promise.all(promiseArray);
 
-  blogObject = new Blog(testHelper.initialBlogs[1]);
-  await blogObject.save();
+  // let blogObject = new Blog(testHelper.initialBlogs[0]);
+  // await blogObject.save();
 
-  blogObject = new Blog(testHelper.initialBlogs[2]);
-  await blogObject.save();
+  // blogObject = new Blog(testHelper.initialBlogs[1]);
+  // await blogObject.save();
+
+  // blogObject = new Blog(testHelper.initialBlogs[2]);
+  // await blogObject.save();
 }, 100000);
-
-// test("blogs are returned as json", async () => {
-//   await api
-//     .get("/api/blogs")
-//     .expect(200)
-//     .expect("Content-Type", /application\/json/);
-// });
 
 test("there are 3 blogs in JSON format", async () => {
   const response = await api.get("/api/blogs");
@@ -100,7 +97,6 @@ test("set likes property to Zero if missing from request", async () => {
 
   const blogs = await testHelper.blogsInDB();
   const lastBlogAdded = blogs.at(-1);
-  // console.log(lastBlogAdded);
   expect(lastBlogAdded.likes).toBe(0);
 });
 
