@@ -1,0 +1,10 @@
+PUT http://localhost:3001/api/blogs/644d89759e9cd27ec711581f
+Content-Type: application/json
+
+{
+    "title": "Redux ToolKit for Beginners",
+    "author": "John Smiggle",
+    "url": "http://codeaddict.com",
+    "likes": 109,
+    "id": "644d89759e9cd27ec711581f"
+  }
