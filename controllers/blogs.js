@@ -10,9 +10,14 @@ blogRouter.post("/", async (request, response, next) => {
   const blog = request.body.like
     ? new Blog({ ...request.body })
     : new Blog({ ...request.body, likes: 0 });
-  // const blog = new Blog({ ...request.body });
   const result = await blog.save();
   response.status(201).json(result);
+});
+
+blogRouter.delete("/:id", async (request, response) => {
+  const { id } = request.params;
+  await Blog.findByIdAndRemove(id);
+  response.status(204).end();
 });
 
 module.exports = blogRouter;

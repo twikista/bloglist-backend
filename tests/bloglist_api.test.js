@@ -34,15 +34,6 @@ beforeEach(async () => {
   const blogObjects = testHelper.initialBlogs.map((blog) => new Blog(blog));
   const promiseArray = blogObjects.map((i) => i.save());
   await Promise.all(promiseArray);
-
-  // let blogObject = new Blog(testHelper.initialBlogs[0]);
-  // await blogObject.save();
-
-  // blogObject = new Blog(testHelper.initialBlogs[1]);
-  // await blogObject.save();
-
-  // blogObject = new Blog(testHelper.initialBlogs[2]);
-  // await blogObject.save();
 }, 100000);
 
 test("there are 3 blogs in JSON format", async () => {
@@ -124,6 +115,16 @@ test("blog without url is not added", async () => {
 
   const blogs = await testHelper.blogsInDB();
   expect(blogs).toHaveLength(testHelper.initialBlogs.length);
+});
+
+test("a blog can be deleted", async () => {
+  const blogsBeforeDelete = await testHelper.blogsInDB();
+  const blogToDelete = blogsBeforeDelete[0];
+
+  await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
+
+  const blogsAfterDelete = await testHelper.blogsInDB();
+  expect(blogsAfterDelete).toHaveLength(testHelper.initialBlogs.length - 1);
 });
 
 afterAll(async () => {
