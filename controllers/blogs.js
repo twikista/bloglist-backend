@@ -8,14 +8,6 @@ blogRouter.get("/", async (request, response) => {
   response.json(blogs);
 });
 
-// const getToken = (request) => {
-//   const authorization = request.get("authorization");
-//   if (authorization && authorization.startsWith("Bearer ")) {
-//     return authorization.replace("Bearer ", "");
-//   }
-//   return null;
-// };
-
 blogRouter.post("/", async (request, response) => {
   console.log("i am starting");
   const token = jwt.verify(request.token, process.env.SECRET);
@@ -38,9 +30,20 @@ blogRouter.post("/", async (request, response) => {
 });
 
 blogRouter.delete("/:id", async (request, response) => {
-  const { id } = request.params;
-  await Blog.findByIdAndRemove(id);
-  response.status(204).end();
+  const token = jwt.verify(request.token, process.env.SECRET);
+  if (!token.id) {
+    return response.status(401).json({ error: "invalid token" });
+  }
+  const userId = token.id;
+
+  const blogId = request.params.id;
+  const blog = await Blog.findById(blogId);
+  if (blog.user.toString() === userId.toString()) {
+    await Blog.findByIdAndRemove(blogId);
+    response.status(204).end();
+  } else {
+    return response.status(403).json({ error: "unauthorized" });
+  }
 });
 
 blogRouter.put("/:id", async (request, response) => {

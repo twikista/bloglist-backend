@@ -22,16 +22,11 @@ const errorHandler = (error, request, response, next) => {
 };
 
 const tokenExtractor = (request, response, next) => {
-  console.log("starting extraction");
   const authorization = request.get("authorization");
   if (authorization && authorization.startsWith("Bearer ")) {
-    console.log("processing authorization");
     request.token = authorization.replace("Bearer ", "");
-    console.log("completed authorization");
-    // return authorization.replace("Bearer ", "");
     next();
   } else {
-    console.log("I shouldn't be called");
     request.token = null;
     next();
   }
