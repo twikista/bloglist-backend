@@ -2,4 +2,4 @@ POST http://localhost:3001/api/blogs/
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoieW1peCIsImlkIjoiNjQ2OWZlOTExN2JkM2I2OTVlNGRmY2I4IiwiaWF0IjoxNjg0NjY4MTI4fQ.ZOMc1CBNPOVwLHptMBTkDGQx4pedlmIR6-FPiSLoQMA
 
-{"title": "backend dedigns", "author": "Blake", "url": "http://blake.com", "likes": 20}
+{"title": "relational databases", "author": "GeekForce", "url": "http://geek.com", "likes": 5}

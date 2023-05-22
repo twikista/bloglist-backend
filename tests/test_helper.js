@@ -1,22 +1,25 @@
 const Blog = require("../models/blog");
-const User = require('../models/user')
+const User = require("../models/user");
 
 const initialBlogs = [
   {
     title: "React patterns",
     author: "Michael Chan",
+    user: "646b836c59104e21663c5d41",
     url: "https://reactpatterns.com/",
     likes: 7,
   },
   {
     title: "Go To Statement Considered Harmful",
     author: "Edsger W. Dijkstra",
+    user: "646b836c59104e21663c5d41",
     url: "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
     likes: 5,
   },
   {
     title: "First class tests",
     author: "Robert C. Martin",
+    user: "646b836c59104e21663c5d41",
     url: "http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll",
     likes: 10,
   },
@@ -27,13 +30,13 @@ const blogsInDB = async () => {
   return blogs.map((i) => i.toJSON());
 };
 
-const usersInDb = async()=>{
-const users = await User.find({})
-return users.map(user => user.toJSON())
-}
+const usersInDb = async () => {
+  const users = await User.find({});
+  return users.map((user) => user.toJSON());
+};
 
 module.exports = {
   initialBlogs,
   blogsInDB,
-  usersInDb
+  usersInDb,
 };

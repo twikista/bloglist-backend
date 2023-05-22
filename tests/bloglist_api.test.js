@@ -6,6 +6,44 @@ const app = require("../app");
 const api = supertest(app);
 
 const Blog = require("../models/blog");
+const User = require("../models/user");
+
+describe("user must be authenticated", () => {
+  let auth = {};
+  beforeAll(async () => {
+    const credentials = { username: "fingy", password: "123456" };
+    const response = await api
+      .post("/api/login")
+      .send(credentials)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+
+    auth.token = response.body.token;
+    console.log(auth);
+  }, 100000);
+
+  beforeEach(async () => {
+    console.log(auth);
+    await Blog.deleteMany({});
+
+    const blogObjects = testHelper.initialBlogs.map((blog) => new Blog(blog));
+    const promiseArray = blogObjects.map((i) => i.save());
+    await Promise.all(promiseArray);
+  }, 100000);
+
+  test("to view all blogs", async () => {
+    const blogsAtStart = await testHelper.blogsInDB();
+    console.log(blogsAtStart);
+
+    const response = api
+      .get("/api/blogs")
+      .set("Authorization", `Bearer ${auth.token}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    console.log(response);
+    expect(response.body).toHaveLength(blogsAtStart.length);
+  });
+});
 
 beforeEach(async () => {
   await Blog.deleteMany({});

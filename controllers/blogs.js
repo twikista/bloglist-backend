@@ -9,14 +9,14 @@ blogRouter.get("/", async (request, response) => {
 });
 
 blogRouter.post("/", async (request, response) => {
-  console.log("i am starting");
-  const token = jwt.verify(request.token, process.env.SECRET);
-  if (!token.id) {
-    return response.status(401).json({ error: "invalid token" });
-  }
-  console.log(token);
+  // console.log("i am starting");
+  // const token = jwt.verify(request.token, process.env.SECRET);
+  // if (!token.id) {
+  //   return response.status(401).json({ error: "invalid token" });
+  // }
+  // console.log(token);
   // const { id } = token;
-  const user = await User.findById(token.id);
+  const user = request.user;
 
   const blog = request.body.likes
     ? new Blog({ ...request.body, user: user.id })
@@ -30,15 +30,15 @@ blogRouter.post("/", async (request, response) => {
 });
 
 blogRouter.delete("/:id", async (request, response) => {
-  const token = jwt.verify(request.token, process.env.SECRET);
-  if (!token.id) {
-    return response.status(401).json({ error: "invalid token" });
-  }
-  const userId = token.id;
+  // const token = jwt.verify(request.token, process.env.SECRET);
+  // if (!token.id) {
+  //   return response.status(401).json({ error: "invalid token" });
+  // }
+  const user = request.user;
 
   const blogId = request.params.id;
   const blog = await Blog.findById(blogId);
-  if (blog.user.toString() === userId.toString()) {
+  if (blog.user.toString() === user.id.toString()) {
     await Blog.findByIdAndRemove(blogId);
     response.status(204).end();
   } else {
