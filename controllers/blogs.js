@@ -48,10 +48,19 @@ blogRouter.delete("/:id", async (request, response) => {
 
 blogRouter.put("/:id", async (request, response) => {
   const id = request.params.id;
-  const blog = request.body;
+  const blogUpdateData = request.body;
 
-  const updatedBlog = await Blog.findByIdAndUpdate(id, blog, { new: true });
-  response.status(200).json(updatedBlog);
+  const user = request.user;
+  const blog = await Blog.findById(id);
+
+  if (user.id.toString() === blog.user.toString()) {
+    const updatedBlog = await Blog.findByIdAndUpdate(id, blogUpdateData, {
+      new: true,
+    });
+    response.status(200).json(updatedBlog);
+  } else {
+    return response.status(403).json({ error: "unauthorized" });
+  }
 });
 
 module.exports = blogRouter;
