@@ -141,7 +141,7 @@ describe("blog route is protected", () => {
   });
 
   describe("deletion of a blog", () => {
-    test("succeeds with status code 204 if user ia authenticated and id is valid", async () => {
+    test("succeeds with status code 204 if user is authenticated and id is valid", async () => {
       const blogsBeforeDelete = await testHelper.blogsInDB();
       const blogToDelete = blogsBeforeDelete[0];
 

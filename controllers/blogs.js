@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const blogRouter = require("express").Router();
 const Blog = require("../models/blog");
+const middleware = require("../utils/middleware");
 const User = require("../models/user");
 
 blogRouter.get("/", async (request, response) => {
@@ -8,7 +9,7 @@ blogRouter.get("/", async (request, response) => {
   response.json(blogs);
 });
 
-blogRouter.post("/", async (request, response) => {
+blogRouter.post("/", middleware.tokenExtractor, async (request, response) => {
   // console.log("i am starting");
   // const token = jwt.verify(request.token, process.env.SECRET);
   // if (!token.id) {
@@ -29,24 +30,28 @@ blogRouter.post("/", async (request, response) => {
   response.status(201).json(savedBlog);
 });
 
-blogRouter.delete("/:id", async (request, response) => {
-  // const token = jwt.verify(request.token, process.env.SECRET);
-  // if (!token.id) {
-  //   return response.status(401).json({ error: "invalid token" });
-  // }
-  const user = request.user;
+blogRouter.delete(
+  "/:id",
+  middleware.tokenExtractor,
+  async (request, response) => {
+    // const token = jwt.verify(request.token, process.env.SECRET);
+    // if (!token.id) {
+    //   return response.status(401).json({ error: "invalid token" });
+    // }
+    const user = request.user;
 
-  const blogId = request.params.id;
-  const blog = await Blog.findById(blogId);
-  if (blog.user.toString() === user.id.toString()) {
-    await Blog.findByIdAndRemove(blogId);
-    response.status(204).end();
-  } else {
-    return response.status(403).json({ error: "unauthorized" });
+    const blogId = request.params.id;
+    const blog = await Blog.findById(blogId);
+    if (blog.user.toString() === user.id.toString()) {
+      await Blog.findByIdAndRemove(blogId);
+      response.status(204).end();
+    } else {
+      return response.status(403).json({ error: "unauthorized" });
+    }
   }
-});
+);
 
-blogRouter.put("/:id", async (request, response) => {
+blogRouter.put("/:id", middleware.tokenExtractor, async (request, response) => {
   const id = request.params.id;
   const blogUpdateData = request.body;
 
