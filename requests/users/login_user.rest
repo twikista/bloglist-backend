@@ -2,4 +2,9 @@ POST http://localhost:3003/api/login
 Content-Type: application/json
 
 # {"username":"snugs", "password":"roseroyce"}
-{"username":"ymix", "password":"123456"}
+{"username":"maxi", "password":"123456"}
+
+
+//"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoieW1peCIsImlkIjoiNjRkZDQ2ODQ2MmVkNWE3N2IxNWI1ZDg1IiwiaWF0IjoxNjkyODE0NDIxfQ.A7J7hW354gSYCKtiNAMh-YnfuE_xziLbE8kwu-BJH5A" - ymix
+
+//"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibWF4aSIsImlkIjoiNjRlMmU5YjFjYzRiOWZmNTVkOWQwMzQ0IiwiaWF0IjoxNjkyODIyNTYxfQ.MsqXPag4MiC0M-WU1avIRxIC27IS14vv1T6b0rKaipE"-maxi

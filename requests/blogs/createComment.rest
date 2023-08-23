@@ -1,0 +1,8 @@
+POST http://localhost:3003/api/blogs/64e66c8d8f734f69ab8b059c/comments
+Content-Type: application/json
+
+{"text":"Excellent article by the writer"}
+
+//"64e65056625d895f174ca86e"
+
+//"64e66c8d8f734f69ab8b059c"

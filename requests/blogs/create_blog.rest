@@ -1,5 +1,5 @@
-POST http://localhost:3001/api/blogs/
+POST http://localhost:3003/api/blogs/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoieW1peCIsImlkIjoiNjQ2OWZlOTExN2JkM2I2OTVlNGRmY2I4IiwiaWF0IjoxNjg0NjY4MTI4fQ.ZOMc1CBNPOVwLHptMBTkDGQx4pedlmIR6-FPiSLoQMA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibWF4aSIsImlkIjoiNjRlMmU5YjFjYzRiOWZmNTVkOWQwMzQ0IiwiaWF0IjoxNjkyODIyNTYxfQ.MsqXPag4MiC0M-WU1avIRxIC27IS14vv1T6b0rKaipE
 
-{"title": "relational databases", "author": "GeekForce", "url": "http://geek.com", "likes": 5}
+{"title": "Advanced Next.JS", "author": "HyperMoon", "url": "http://hypermoon.com", "likes": 2}

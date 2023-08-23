@@ -3,11 +3,12 @@ const blogRouter = require('express').Router()
 const Blog = require('../models/blog')
 const middleware = require('../utils/middleware')
 const User = require('../models/user')
+const Comment = require('../models/comment')
 
 blogRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({})
     .populate('user', { username: 1, name: 1 })
-    .populate('comment')
+    .populate('comments')
   response.json(blogs)
 })
 
@@ -68,6 +69,24 @@ blogRouter.put('/:id', middleware.tokenExtractor, async (request, response) => {
   } else {
     return response.status(403).json({ error: 'unauthorized' })
   }
+})
+
+blogRouter.post('/:id/comments', async (request, response) => {
+  const blogId = request.params.id
+  console.log(blogId)
+  const commentText = request.body.text
+
+  const comment = new Comment({
+    text: commentText,
+    blog: blogId,
+  })
+  const savedComment = await comment.save()
+
+  const blogCommentedOn = await Blog.findById(blogId)
+  blogCommentedOn.comments = blogCommentedOn.comments.concat(savedComment)
+  await blogCommentedOn.save()
+
+  response.status(201).json(savedComment)
 })
 
 module.exports = blogRouter
